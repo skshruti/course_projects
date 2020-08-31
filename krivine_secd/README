@@ -1,0 +1,64 @@
+This is an implementation of SECD machine and krivine machine.
+The expressions are of type:
+				   Var of string
+				 | Int of int
+				 | Bool of bool
+				 | Add of (expression*expression)
+				 | Mult of (expression*expression)
+				 | Sub of (expression*expression)
+				 | Div of (expression*expression)
+				 | Abs of (string*expression)
+				 | App of (expression*expression)
+				 | If of (expression*expression*expression)
+				 | Compare of expression
+
+All the possible cases suggested in the assignment specifications are implemented and tested.
+
+//EXECUTION INSTRUCTIONS
+Add the following testcases in the krivine.ml file and execute
+ocamlc krivine.ml 
+and run the a.out file.
+
+//TESTCASES FOR KRIVINE MACHINE
+let table=[("y",I(6));("x",I(9))];;
+print_answer(kri (table,Var("x")) []);;
+print_answer(kri (table, Add(Var("x"),Var("y"))) []);;
+print_answer(kri (table, Mult(Var("x"),Var("y"))) []);;
+print_answer(kri (table, Sub(Var("x"),Var("y"))) []);;
+print_answer(kri (table, Div(Var("x"),Var("y"))) []);;
+print_answer(kri (table, Add(Var("x"),Int(100))) []);;
+print_answer(kri (table, App(Abs("arg",Mult(Var("arg"),Int(2))),Int(34))) []);;
+print_answer(kri (table, If(Bool(true),Var("x"),Var("y"))) []);;
+print_answer(kri (table, If(Bool(false),Var("x"),Var("y"))) []);;
+print_answer(kri (table, Compare(Sub(Var("x"),Var("y")))) []);;
+print_answer(kri (table, Compare(Sub(Var("x"),Var("x")))) []);;
+print_answer(kri (table, Compare(Sub(Var("y"),Var("x")))) []);;
+
+
+//EXECUTION INSTRUCTIONS
+Add the following testcases in the secd.ml file and execute
+ocamlc secd.ml 
+and run the a.out file.
+
+//TESTCASES FOR SECD MACHINE
+let table=[("y",I(6));("x",I(9))];;
+print_answer(secd ([]) (table) (compile(Var("x"))) []);;
+print_answer(secd ([]) (table) (compile(Add(Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(Mult(Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(Sub(Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(Div(Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(Add(Var("x"),Int(100)))) []);;
+print_answer(secd ([]) (table) (compile(App(Abs("arg",Mult(Var("arg"),Int(2))),Int(34)))) []);;
+print_answer(secd ([]) (table) (compile(If(Bool(true),Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(If(Bool(false),Var("x"),Var("y")))) []);;
+print_answer(secd ([]) (table) (compile(Compare(Sub(Var("x"),Var("y"))))) []);;
+print_answer(secd ([]) (table) (compile(Compare(Sub(Var("x"),Var("x"))))) []);;
+print_answer(secd ([]) (table) (compile(Compare(Sub(Var("y"),Var("x"))))) []);;
+
+
+The SECD machine works on the opcode list and the krivine machine works on the expressions.
+The algorithm for both the machines is as suggested by Sir in the uploaded notes and Wikipedia.
+If the user tries to operate on invalid arguments such as adding bool and int or the first argument in if does not have boolean type, exception INVALIS_OPERATION is raised. 
+In the lookup function, if the mapping of the string doesn't exist in the table, exception VAR_NOT_FOUND is raised.
+
+
