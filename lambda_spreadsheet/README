@@ -1,0 +1,20 @@
+The zipped folder contains a lexer file, parser file, module that contains all the functions, a main file, a Makefile and a file containing all the documentation named lexer.mll, parser.mly, backend.ml, main.ml, Makefile and README respectively.
+
+Some changes made in lexer.mll and parser.mly are as follows:
+->The tokens index, range and float had previously no arguments but they are now changed to <string> index, <string> range and <string> float respectively because now it is required. In the previous assignments there was no need to use what was passed hence I didn't do it then.
+->Previously, parser.mly had all the functions implemented in its definition section, but this time the functions were replaced by open Backend and all the functions are implemented in backend.ml since we were asked to do modular implementation.
+->main.ml had previously a result variable defined unnecessarily which is removed this time.
+
+Backend.ml:
+->Type of element is defined as None| Some of float.
+->Type of sheet is element array array.
+->If the value assigned to a cell is None and any operator except COUNT/ROWCOUNT/COLCOUNT is applied to it, the exception Empty_cell is raised.
+->Some helper functions are used to extract the value of r,c from the string [r,c] and r1,r2,c1,c2 from ([r1,c1]:[r2,c2]). It is done by using functions of Str module.
+->The sheet is assigned values in backend.ml only and all the functions are called on that sheet only in parser.mly.
+->All my functions return the sheet and also print the sheet followed by a next line for the invigilator to check if the functions are working correctly or not.
+->The sheet is printed using my custom print_sheet(s: sheet) function.
+->All the required functions are implemented by using for loops as and when required.
+
+Instructions to execute:
+->The program will run if the following format is typed on the terminal-
+	./assignment4 <csv_file_path> <m> <n> < <expression_file_path>

@@ -1,0 +1,14 @@
+I have included a single main.ml file and since there is only a single ml file, I have not submitted any makefile.
+
+The code is commented properly so as the users can understand what each function does.
+
+I have taken the type of substitution to be (term* variable) list, symbol to be string*int, variable to be string, term to be V of variable|Node of symbol * (term list) and signature to be symbol list.
+
+I have made appropriate print functions for each type and to check the results, the user can use my custom print functions:
+print_bool;print_list;print_symbol;print_term;print_substitution
+
+
+size::
+match t with
+	 V(var)->0
+	|Node(sym,lt)->snd sym+help(t);;

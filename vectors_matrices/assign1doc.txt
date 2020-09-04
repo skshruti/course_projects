@@ -1,0 +1,119 @@
+This is the documentation for assignment 1, explaining what each function does and how it works.
+
+head(v:vector): It returns the first element of the vector v. If v is empty, it raises the exception InvalidInput.
+	The time complexity is O(1).
+
+tail(v:vector): It returns the whole vector except the the first element of the vector v. If v is empty, it raises the exception InvalidInput.
+	The time complexity is O(1).
+
+vdim (v: vector): It is a recursive function which returns the dimension of the vector i.e., the number of elements in v. 
+	The time complexity is O(n).
+
+mkzerov(n: int): It is  recursive function which appends 0.0 n number of times to an empty vector and hence returns a zero vector whose dimension is n.
+	The time complexity is O(n).
+
+elem(v: vector)(i: int): It returns the element at ith index, index starting from 1, in the vector v.
+	The time complexity is O(n).
+
+iszerov(v: vector): It is a recursive function which traverses the vector v and returns false if encounters any non-zero element else returns true.
+	The time complexity is O(n).
+
+addv (v1:vector) (v2:vector): It adds the corresponding elements of v1 and v2 recursively and returns the result in form of a vector.
+	The time complexity is O(n).
+
+scalarmultv (c:float) (v:vector): It recursively multiplies the scalar c to each element of vector v and returns the resulting vector.
+	The time complexity is O(n).
+
+dotprodv (v1:vector) (v2:vector): It sums up the product of corresponding elements of v1 and v2 and returns the final sum after traversing the vector completely.
+	The time complexity is O(n).
+
+
+
+
+headm(m: matrix): It returns the first element of the matrix, i.e., a vector. If m is empty, it raises the exception InvalidInput.
+	The time complexity is O(1).
+
+tailm(m: matrix): It returns the whole matrix except the the first element of the matrix m. If m is empty, it raises the exception InvalidInput.
+	The time complexity is O(1).
+
+geti(m:matrix)(i:int): It returns the element at ith index, index starting from 1, in the matrix m.
+	The time complexity is O(n).
+
+nrow(m: matrix): It returns the number of rows in the matrix, i.e., the number of vectors in the matrix m.
+	The time complexity is O(n).
+
+mdim(m: matrix): It takes help of the function nrow(m) and returns a tuple whose first element is the dimension of the vector which signifies the number of columns and the second element is the number of rows.
+	The time complexity is O(n) since it uses nrow() and vdim().
+
+mkzerom (m_:int) (n_:int): It creates a matrix of dimension m*n whose all the elements are 0.0 by appending mkzerov(n_) m_ times.
+	The time complexity is O(n^2) since it uses mkzerov().
+
+iszerom (m:matrix): It checks if the matrix is a zero matrix using the function iszerov() n number of times, where n=nrow(m).
+	The time complexity is O(n^2) since it uses iszerov().
+
+mkunitm (m_:int): It creates a square matrix of dimension m*m whose all the diagonal elements are 1.0 and others, 0.0. It uses the following helper functions for the purpose:
+	help1(m:int)(j:int): It is a recursive function which calls mkunitv(i)(m), incrementing i by 1 at each loop and appends them to make a diagonal matrix.
+		The time complexity is O(n^2) since it uses mkunitv()
+		mkunitv(i: int)(m: int): It creates a vector of dimension m whose all elements are 0.0 except the nth element which is 1.0. 
+			The time complexity is O(n).
+	Now, mkunitm(m_) calls help1(m_)(1) so as to start creating the matrix of dimension m*m.
+		The time complexity is O(n^2) since it uses mkunitv() and help1().
+
+isunitm(m_:matrix): It checks if a matrix is a unit matrxi or not. It uses the following helper functions for the purpose:
+	help5(m: matrix)(i: int): It is a recusrsive function which checks each element of matrix to be a unit vector by incrementing i by 1 each time by calling isunitv(geti(m)(i))(i)(1).
+	The time complexity is O(n^2) since it uses isunitv().
+		isunitv(v: vector)(i: int)(count: int): It checks if v is a unit vector or not, where unit function is defined as a vector whose all elements are 0. except the ith element which is 1. It does so by recursively calling the function by incementing count each time by 1 and returns false if any element is not as expected and returns true if it turns out to be a unit vector with 1. at ith element.
+			The time complexity is O(n).
+	Now, isunitm(m_) calls help5(m_)(1), initialising i to 1.
+		The time complexity is O(n^2) since it uses isunitv() and help5().
+
+ addm (m1:matrix) (m2:matrix): It adds the corresponding vectors of m1 and m2 by calling addv to add them and appends all the added vectors.
+ 	The time complexity is O(n^2) since it uses addv().
+
+ scalarmultm (c:float) (m:matrix): It recursively multiplies the scalar c to each element of matrix m by calling scalarmultv(c)(v) and returns the resulting matrix.
+ 	The time complexity is O(n^2) since it uses scalarmultv(c)(v).
+
+ multm (m1:matrix) (m2:matrix): It multiplies the matrices m1 and m2. For this, we need a function which multiplies a vector to a matrix and returns a vector. We use multvm(v: vector)(m: matrix) for the purpose.
+ 	multvm(v: vector)(m: matrix): It initialises the helper function, help2,  by 1 to achieve the aim.
+ 		The time complexity is O(n^2) since it uses help2().
+ 		help2(v: vector)(i: int)(m: matrix): It takes v, computes it's dot product it with every column of the matrix recursively, increasing i by 1 each time to get the next column.
+ 			The time complexity is O(n^2) since it uses getcolumn().
+ 			getcolumn(m: matrix)(i: int): It is a function which returns the ith column of the matrix m which can be used by the helper function. It does so by appending ith element of each row of the matrix to form a vector.
+ 				The time complexity is O(n).
+ 	Now, since we can compute product of a vector and a matrix, we just call multvm n number of times, where n=nrow(m) and appends the vectors to get the required matrix.
+ 		The time complexity is O(n^3) since it uses multvm().
+
+ transm (m:matrix): It tarnsposes the matrix m and initialises the following helper function, help3, by 1 for the purpose.
+ 	help3 (m: matrix)(i: int): It recursively calls the function and appends the column at ith index using getcolumn(i) to get the transpose.
+ 		The time complexity is O(n^2) since it uses getcolumn().
+
+ I have used a matrix named cofact multiple times. It is the matrix obtained by excluding the ith row and jth column from the matrix m.
+
+ detm (m:matrix): It computes the determinant of m, by initialising the following helper function, help4, by 1.
+ 	help4(m: matrix)(i: int): It takes the first element of the first vector of the matrix, multiplies it with the determinant of the cofactor corresponding to the element, taking care of the sign using the signi(i: int) function, and recursively calls the function incrementing i by 1 each time and adding all of them. It uses the following functions for this:
+ 		The time complexity is O(n^3) since it uses cofact().
+ 		signi(i: int): It returns 1. if i is odd else -1.
+ 			The time complexity is O(1).
+ 		cofact(m: matrix)(r: int)(c :int)(count: int)(var: int): It returns the cofact matrix corresponding to (i,j)th element. It does so by excluding the jth element from each row using the exclude function and appending the rows leaving the ith row totally.
+ 			The time complexity is O(n^2) since it uses exclude().
+ 			exclude(v: vector)(i: int)(j: int): Here, j is the counter which stopes calling the function when it becomes equal to dimension of the vector. It appends all the elements of v except the element at ith index and returns the resulting vector.
+ 				The time complexity is O(n).
+ 		The time complexity is O(n^3)
+
+invm (m:matrix): It returns the inverse of the matrix m using the general ideas of minors and cofactors. For simplicity, I have not created the matrix of minors first and then converted it to a cofactor matrix. Instead I have made the cofactor matrix using the following function:
+	minors(m: matrix)(i:int): It creates the cofactor matrix corresponding to the each element of m by appending the vectors resulted by the following function n times, n=nrow(m). For the purpose it appends the vectors created by minorvec function as given below:
+		The time complexity is O(n^5) since it uses minorvec().
+		minorvec(m: matrix)(i: int)(j: int): It creates the cofactor matrix about ith row by taking care of the sign using sign(i)(j) function, and multiplying the sign by the determinant of adjacent cofactor matrix.
+		sign(i: int)(j: int): It returns 1 if (i+j)mod2=0 else returns -1.
+			The time complexity is O(n^4) since it uses detm().
+	Now, after we got the cofactor matrix, it transposes it using the transm function and multiplies it with 1/det(m) to get the inverse of the matrix.
+		The time complexity is O(n^5) since it uses minors().
+
+crossprodv (v1:vector) (v2:vector): It returns the cross product of two vectors. For achieving the purpose, I have created a matrix which has its first row containing all elements=1.0 and the next row is v1 and the next is v2. And then I have passed the resulting matrix to minorvec function to get the required result. The helper functions used are:
+	The time complexity is O(n^4) since it uses minorvec().
+	mkonev (n:int): It creates a vector with all elements=1.0 of n dimension.
+		The time complexity is O(n).
+	mkmatrix(v1: vector)(v2: vector): It creates a matrix of v1 and v2.
+		The time complexity is O(1).
+
+

@@ -1,0 +1,32 @@
+SHRUTI KUMARI
+2018CS50420
+
+MINI PROLOG IMPLEMENTATION
+
+The zip folder includes lexer.mll,parser.mly,main.ml,Makefile,testcases,README and backend.ml.
+
+Running the code:
+=>If you want to get the solutions of the query one by one, i.e. presenting the next possible solution on the basis of what the user enters then you would have to provide the data in the interpreter mode only. First run the make command then type 
+./main
+in the terminal and enter the data and enter the queries following '?-', both followed by a full stop.
+The only change you have to do is, 
+1)use the function print_sol instead of print_string
+2)use the function print_solutions instead of print_subsList
+in parser.mly.
+
+=>If you do not want to type the data in the interpreter mode and want to take input from a file, the code would print all the possible solutions for any given query. A reference file for giving input is attached by the name of testcases. First run the make command then type 
+./main< <filename> 
+in the terminal.
+The only change you have to do is, 
+1)use the function print_string instead of print_sol
+2)use the function print_subsList instead of print_solutions
+in parser.mly.
+
+Since Sir had asked to give the solutions one by one, I have submiited the code which would work in the interpreter mode i.e., it would take all the data and queries from the console itself.
+Enter ';' after the execution of query to enter next query.
+The program will stop running if 'halt.' is given as the input.
+
+The code is commented so that the user gets an idea of what each function does.
+
+testcases:
+This file contains some of the sample test cases for the user to see what kinds of queries does the prolog answer correctly.

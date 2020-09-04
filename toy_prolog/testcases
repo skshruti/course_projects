@@ -1,0 +1,41 @@
+bad_dog(Dog):-bites(Dog,Person),is_person(Person),is_dog(Dog).
+bites(fido,postman).
+is_person(postman).
+is_dog(fido).
+?-bad_dog(fido).
+holds_party(X):-birthday(X),happy(X).
+birthday(tom).
+birthday(fred).
+birthday(ron).
+happy(ron).
+happy(fred).
+?-holds_party(fred).
+?-holds_party(X).
+?-male(rocky).
+?-birthday(el).
+?-birthday(tom).
+?-holds_party(el).
+loves(tom,mike).
+loves(fred,dustin).
+hates(ron,dustin).
+?-loves(fred,X),hates(ron,X).
+?-loves(el,X).
+?-hates(X,ron),loves(X,dustin).
+?-loves(X,Y).
+?-loves(fred,X).
+?-loves(tom,mike).
+lectures(turing, 9020).
+lectures(codd, 9311).
+lectures(codd, 9314).
+studies(fred, 9020).
+year(fred, 1).
+teaches(Teacher,Student):-lectures(Teacher,Course),studies(Student,Course).
+?-lectures(turing,Course),studies(fred,Course).
+?-teaches(turing,fred).
+?-lectures(codd, Course),studies(Student, Course).
+grandpa(X,Y):-papa(X,Z),parent(Z,Y).
+parent(X,Y):-papa(X,Y).
+papa(a,b).
+papa(b,c).
+?-grandpa(a,c).
+halt.
