@@ -38,4 +38,12 @@ parent(X,Y):-papa(X,Y).
 papa(a,b).
 papa(b,c).
 ?-grandpa(a,c).
+trips(X):-sleepy(X).
+trips(X):-alone(X).
+alone(ron).
+sleepy(ron).
+alone(harry).
+?-trips(ron).
+?-trips(harry).
+?-trips(hermione).
 halt.

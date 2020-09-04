@@ -30,3 +30,23 @@ The code is commented so that the user gets an idea of what each function does.
 
 testcases:
 This file contains some of the sample test cases for the user to see what kinds of queries does the prolog answer correctly.
+
+I have handled cases including:
+=>and conditions in a rule
+=>or condition if the case is given as:
+	a(X):-b(X).
+	a(X):-c(X).
+=>multiple queries, for example:
+	?-lectures(turing,Course),studies(fred,Course).
+=>nested rules, for example:
+	a(X,Y):-b(X,Z),c(Z,Y).
+	b(X,Y):-d(X,Z),e(Z,Y).
+
+
+There is one unexpected error which comes up sometimes:
+On executing the command 'make', it shows 'Unbound module Backend' error.
+But its nothing, I don't know why it is happening.
+If it happens, please just execute the following command before executing the makefile i.e., 
+1. ocamlyacc parser.mly
+2. make
+It will execute correctly without any errors.

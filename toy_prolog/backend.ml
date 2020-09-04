@@ -251,7 +251,7 @@ let rec find_goal(t: term)(db: database)=
 	for i=0 to (List.length db-1) do
 	try
 		let substWith=mgu(t)(List.hd (List.nth db i)) in
-		result:=substTl(List.tl (List.nth db i))(substWith)
+		result:=substTl(List.tl (List.nth db i))(substWith)::(!result)
 	with
 	| _ -> print_string""
 	done;
@@ -260,7 +260,7 @@ let rec find_goal(t: term)(db: database)=
 (*returns false if the term depends on other facts, returns true if is independent*)
 let rec is_fact(t: term)(db: database)=
 	let temp=ref "true" in
-	for i=1 to (List.length db-1) do
+	for i=0 to (List.length db-1) do
 		if((List.length (List.nth db i))!=0) then
 		begin
 		if(get_root(t)=get_root(List.hd (List.nth db i)) && ((List.length (List.nth db i))>1)) then temp:="false"
@@ -327,16 +327,18 @@ let rec answer_queries(t: term list)(db: database)=
 
 (*checks the existence of a term which is dependent on other facts*)
 let rec solve_for(t: term)(db: database)(s: substitution)=
+	let result=ref false in
+	let goalList=ref (find_goal(t)(db)) in
+	let i=ref 0 in
 	let temp(t: term)=solve_for(t)(db)(s) in
 	if(is_fact(t)(db)=true) then 
-		begin
-		if(term_exist(t)(db)="yes\n") then true
-		else false
-		end
-	else 
-	let refList=ref (substTl(find_goal(t)(db))(s)) in
-	if(all_true (List.map temp !refList)=true) then true
-	else false;;
+		if(term_exist(t)(db)="yes\n") then result:=true;
+	while((result=ref false) && (!i<(List.length !goalList))) do
+		let refList=ref (substTl(List.nth !goalList !i)(s)) in
+		if(all_true (List.map temp !refList)=true) then result:=true;
+		i:=!i+1
+	done;
+	!result;;
 
 let rec multQueries(t: term list)(db: database)(lt: substitution list)=
 	match lt with
@@ -347,6 +349,12 @@ let rec multQueries(t: term list)(db: database)(lt: substitution list)=
 				if(all_true (List.map check_term t)=true) then x::multQueries(t)(db)(xs)
 				else multQueries(t)(db)(xs)
 
+let addSubs (lt: substitution list)(s: substitution list)=
+	let result=ref (lt) in
+	for i=0 to (List.length s-1) do
+		if((List.mem (List.nth s i) lt)=false) then result:=((List.nth s i)::!result);
+	done;
+	!result;;
 (*returns all the solutions that satisfy all the subgoals for the relevant goal of a term using backtracking*)
 let backtrack (t: term)(db: database)=
 	let rec helper(t: term)(db: database)(lt: substitution list)=
@@ -354,18 +362,26 @@ let backtrack (t: term)(db: database)=
 	 []->[]
 	|x::xs->if(solve_for(subst(t)(x))(db)(x)=true) then x::helper(t)(db)(xs)
 			else helper(t)(db)(xs) in
-	let temp=ref (find_goal(t)(db)) in
-	helper(t)(db)(answer_queries(!temp)(db));;
+	let goalList=ref (find_goal(t)(db)) in
+	let result=ref [] in
+	let i=ref 0 in
+	while((!i<(List.length !goalList))) do
+		result:=addSubs(!result)(helper(t)(db)(answer_queries(List.nth !goalList !i)(db)));
+		i:=!i+1
+	done;
+	!result;;
 
 (*the actual function which calls the corresponding function to check the existence of a term based on whether
 it is dependent or independent*)
 let check_fact (t: term)(db: database)=
 	if(is_fact(t)(db)=true) then 
+		begin
 		if(term_exist(t)(db)="yes\n") then "true.\n"
 		else "false.\n"
+	end
 	else 
 		begin
-		if(List.mem true (List.map var_exist (find_goal(t)(db)))) then 
+		if(List.mem true (List.map var_exist (List.hd (find_goal(t)(db))))) then 
 			begin
 			if(List.length (backtrack(t)(db))==0) then "false.\n"
 			else "true.\n"
