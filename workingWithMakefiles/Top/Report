@@ -1,0 +1,34 @@
+SHRUTI KUMARI
+2018CS50420
+
+REPORT
+
+Firstly, I created a main directory named Top which contains 4 sub-directories named 1, 2, 3 and 4. 
+
+The functions created in the sub-directories is described as below:
+
+Sub-directory 1: This has a function named eo which takes an integer as the argument and returns 1 if the number is even else returns 0.
+
+Sub-directory 2. This contains a function named cube which takes an integer as the argument and returns its cube i.e, n*n*n.
+
+Sub-directory 3. This has a function named add32 which takes an integer as the argument and returns the value obtained when 32 is added to the number.
+
+Sub-directory 4. This has a function named max which takes an integer as the argument and compares it with the integer 50. If the argument is greater than 50, it returns 50 else it returns the argument itself.
+
+Now, the Top directory contains the main application which references all the functions from the sub-directories and asks for an input from the user, then stores it in a variable named a and then passes it as an argument to each of the four functions and prints accordingly.
+
+The main task was to create makefiles in each of the sub-directories and a main makefile which is stored in the parent directory.
+
+The makefiles in the sub-directories check the dependencies of the .c file and recompiles if it detects any change in the .c file and it ensures that the .o file created is stored in the obj directory inside Top instead of the current one. 
+
+The description of the main  makefile is given below:
+->The all target checks the dependencies of directories and all the .o files which are stord in the obj sub-directory and creates a final named executable in the exe sub-directory inside Top directory.
+->The directories target makes the directories exe and obj. the commands used for the purpose are mkdir -p <dir_name> instead of mkdir <dir_name> so that the 'directory already exists error' doesn't occur.
+->The <name>.o targets check the dependencies and then changes the directory and recompiles accordingly.
+->make clean: The clean target deletes all the contents of the exe and obj directory. There is no need to delete the directory here because we have already used -p command to make the directories.
+->make RUN: The RUN target executes the final executable named final.
+
+***
+I have done the assignment by downloading the Ubuntu Shell on my Windows 10.
+->To edit and create the files, I used the commands nano <filename>.
+->

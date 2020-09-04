@@ -1,0 +1,43 @@
+This is an implementation of a plagiarism checker.
+I have adopted the Cosine metric as the measure of similarity in the text dcouments.
+
+A term frequency vector is made for each document.
+ term frequency(word)=number of times word occurs in the document/total number of words in the document.
+The vector of document which is to be compared with the corpus files is named tfVector and all the tf vectors of corpus file are stored in an array of tf vectors named tfVectors.
+
+On the execution of the program, all the text of the test document is stored as a string and then parsed(separated by space, comma, colons, newline, etc.) into an array of words. This array of words is then sorted using qsort() function so that the vectors of term frequency and the final tfIdf vectors will be sorted based on the words. Similarly, tfVectors are calculated for each of the corpus file after parsing and stored in tfVectors[i].
+
+The time complexity of sorting would then be nlog(n) as qsort is used.
+The space complexity till now would be n for each document.
+
+One can easily see that we cannot compare the tfVectors only as this would mean that the checker would count common words such as is, am, are too. These words are most probable to be in each document and hence, do not contribute to the similaity in the documents. To cater this problem, we would be calculating idf(inverse document frequency) for each word.
+ idf(word)=log(number of documents/number of documents in which the word appears)
+One could store it as idfVectors but we wont be doing that as it would only be a waste of memory. We would be calculating idf at the time of calculating tfidf only.
+
+At this stage we have the term frequency vectors for each document and we will be calculating the tfidf vector for each document.
+ tfidf(word)=tf(word)*idf(word)
+
+We have the number of documents in the variable noOfDocs which is incremented at the time of parsing the inputs from the directory. We need a function to count the number of documents in which a given string is present. To do this, I created a function exists() which uses bsearch() and returns the index at which a string and its term frequency is stored in a given tfVector.
+
+The time complexity of searching a string would then be nlog(n) as binary search is used. But since we are iterating this over all the words in a document to create its tfIdf, the total time complexity would be (n^2)log(n).
+
+To create the tfidf one could think to create another set if tfIdf vectors, but again we would save the space by changing the values in the tfVectors itself, as we just need to see if a word is present in the vector or not, we do not need the value with which it is mapped to.
+
+Now we have the one vector containing tfIdf for the test document and a set of vectors with tfIdf values for each document.
+
+The similarity percentage for each document is the dot product of each pair of tfIdf vector. It is calculated by checking the value with which each word is mapped in the test document and the concerned document. If the word is not found in the concerned document, the value taken is 0. 
+
+Here, for all the words (n^2)log(n) time complexity is used up because we are searching for each word in the relevant tfidf vector. It is also done using bsearch. Finally the dot product is multiplied by 100 to give the similarity percentage.
+
+Total time complexity:
+	T=O(k(nlog(n)+(n^2)log(n)+(n^2)log(n))), k is the total number of documents.
+=>  T=O((n^2)log(n)).
+
+Total space complexity:
+	Since we are using the set of tfVectors only,
+	S= O(kn), k is the total number of documents.
+=>  S=O(n)
+
+
+
+
