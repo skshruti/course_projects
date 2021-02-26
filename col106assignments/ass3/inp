@@ -1,0 +1,8 @@
+insert a a a a a
+insert b b b b b
+update a a c c c 
+address b b
+delete a a 
+address b b
+contains a a 
+contains b b
