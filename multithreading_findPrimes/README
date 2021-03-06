@@ -1,0 +1,21 @@
+README
+Shruti Kumari-2018CS50420
+
+I have created the static.c and dynamic.c files in src folder which take arguments n and t, and prints all the primes till n and the time taken by each individual thread in the data_static.txt and data_dynamic.txt files respectively in the result folder.
+
+A function isPrime(int n) is created which checks whether a number n is prime or not by checking the value of n mod i for each i uptil sqrt(n).
+
+To accomplish this goal statically, I ran a loop for t iterations in which in every iteration one thread i is created which checks whether a number is prime or not in the range [i*n/t,(i+1)n/t) by using the function isPrime().
+
+To accomplish this goal dynamically, I ran a loop for t iterations in which in every iteration one thread i is created. The difference is that in this method, the range of numbers to check for is not pre-assigned but there is a global variable startFrom which is initialised to 2. Now when the first thread takes the current value of startFrom(i.e., 2), it increments its value by 1. So that when the next thread sees the value of startFrom, it gets 3 and so it checks for 3 and increments startFrom by 1 more. 
+Hence, in this process, no thread is idle. Whenever it is done with checking for a number k, it again checks the next number to check for using the startFrom variable. All the threads keep working until startFor's value exceeds n.
+
+As we can see by the graph in results folder, in the dynamic version, the time taken by each thread is approximately the same which is not the case with the static version. This is because in the static version, the first thread gets to check for the first few very small numbers and then the thread stops working whereas the last thread has to check for the last numbers which take comparatively a lot of time because of their large value. Hence, the time taken by threads in the static version increases with each thread.
+
+
+The graph and text files containing the results for N=10^6 and t=10 are present in the result directory.
+plot.png: We had expected that the time taken by threads in load balanced version should be approximately equal because they all are working simultaneously and this can be verified by the graph. Also, in the static version the first few threads take less time than the last few threads because their value in the chunk assigned to latter threads are much large compared to the former. Hence it is expected that the graph will be increasing which can be seen in the graph.
+Two text files named data_static.txt and data_dynamic.txt have been submitted in the result directory along with plot.png which contain the results of naiive and load balanced versions respectively. Both the files have first 10 lines storing the time taken by each thread followed by primes generated.
+
+To run the program, as sir had said in the specifications, type 'make N=_ t=_' and all the results would be generated in the output directory. 
+
