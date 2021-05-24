@@ -1,0 +1,9 @@
+README
+2018CS50420
+
+I have created the userthread.c file in src folder which contains the implementation of myThread library. 
+Some test files can be found in the src folder and their targets have been added in the Makefile so they can be run using appropriate targets.
+Implementation of queue has been done in the queue.c file.
+
+Functions such as myThread_create(), myThread_join(), myThread_exit(), myThread_self() adn myThread_yield() have been implemented. For scheduling between threads, a function timer() has been created which sends the signal for the current thread to yield and then choose another thread to work with.
+
