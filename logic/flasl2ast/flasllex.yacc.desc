@@ -1,0 +1,557 @@
+
+state 0:
+
+	Start : . THEREFORE Prop 
+	Start : . Proplist THEREFORE Prop 
+	Start : .  (reduce by rule 2)
+
+	NOT	shift 8
+	IF	shift 7
+	THEREFORE	shift 6
+	EOF	reduce by rule 2
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Start	goto 35
+	Exp	goto 3
+	Prop	goto 2
+	Proplist	goto 1
+
+	.	error
+
+
+state 1:
+
+	Start : Proplist . THEREFORE Prop 
+
+	THEREFORE	shift 9
+
+
+	.	error
+
+
+state 2:
+
+	Proplist : Prop .  (reduce by rule 3)
+	Proplist : Prop . Proplist 
+
+	NOT	shift 8
+	IF	shift 7
+	THEREFORE	reduce by rule 3
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 3
+	Prop	goto 2
+	Proplist	goto 10
+
+	.	error
+
+
+state 3:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Prop : Exp . FULLSTOP 
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	FULLSTOP	shift 11
+
+
+	.	error
+
+
+state 4:
+
+	Exp : QUOTE . Stringlist QUOTE 
+
+	ID	shift 18
+
+	Stringlist	goto 17
+	Term	goto 16
+
+	.	error
+
+
+state 5:
+
+	Exp : LPAR . Exp RPAR 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 19
+
+	.	error
+
+
+state 6:
+
+	Start : THEREFORE . Prop 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 3
+	Prop	goto 20
+
+	.	error
+
+
+state 7:
+
+	Exp : IF . Exp THEN Exp 
+	Exp : IF . Exp THEN Exp ELSE Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 21
+
+	.	error
+
+
+state 8:
+
+	Exp : NOT . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 22
+
+	.	error
+
+
+state 9:
+
+	Start : Proplist THEREFORE . Prop 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 3
+	Prop	goto 23
+
+	.	error
+
+
+state 10:
+
+	Proplist : Prop Proplist .  (reduce by rule 4)
+
+	THEREFORE	reduce by rule 4
+
+
+	.	error
+
+
+state 11:
+
+	Prop : Exp FULLSTOP .  (reduce by rule 5)
+
+	NOT	reduce by rule 5
+	IF	reduce by rule 5
+	THEREFORE	reduce by rule 5
+	EOF	reduce by rule 5
+	LPAR	reduce by rule 5
+	QUOTE	reduce by rule 5
+
+
+	.	error
+
+
+state 12:
+
+	Exp : Exp IFF . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 24
+
+	.	error
+
+
+state 13:
+
+	Exp : Exp IF . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 25
+
+	.	error
+
+
+state 14:
+
+	Exp : Exp OR . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 26
+
+	.	error
+
+
+state 15:
+
+	Exp : Exp AND . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 27
+
+	.	error
+
+
+state 16:
+
+	Stringlist : Term .  (reduce by rule 15)
+	Stringlist : Term . Stringlist 
+
+	ID	shift 18
+	QUOTE	reduce by rule 15
+
+	Stringlist	goto 28
+	Term	goto 16
+
+	.	error
+
+
+state 17:
+
+	Exp : QUOTE Stringlist . QUOTE 
+
+	QUOTE	shift 29
+
+
+	.	error
+
+
+state 18:
+
+	Term : ID .  (reduce by rule 17)
+
+	ID	reduce by rule 17
+	QUOTE	reduce by rule 17
+
+
+	.	error
+
+
+state 19:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Exp : LPAR Exp . RPAR 
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	RPAR	shift 30
+
+
+	.	error
+
+
+state 20:
+
+	Start : THEREFORE Prop .  (reduce by rule 0)
+
+	EOF	reduce by rule 0
+
+
+	.	error
+
+
+state 21:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : IF Exp . THEN Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Exp : IF Exp . THEN Exp ELSE Exp 
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	THEN	shift 31
+
+
+	.	error
+
+
+state 22:
+
+	Exp : NOT Exp .  (reduce by rule 6)
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+
+	AND	reduce by rule 6
+	OR	reduce by rule 6
+	IF	reduce by rule 6
+	IFF	reduce by rule 6
+	THEN	reduce by rule 6
+	ELSE	reduce by rule 6
+	RPAR	reduce by rule 6
+	FULLSTOP	reduce by rule 6
+
+
+	.	error
+
+
+state 23:
+
+	Start : Proplist THEREFORE Prop .  (reduce by rule 1)
+
+	EOF	reduce by rule 1
+
+
+	.	error
+
+
+state 24:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Exp : Exp IFF Exp .  (reduce by rule 11)
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	THEN	reduce by rule 11
+	ELSE	reduce by rule 11
+	RPAR	reduce by rule 11
+	FULLSTOP	reduce by rule 11
+
+
+	.	error
+
+
+state 25:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp IF Exp .  (reduce by rule 10)
+	Exp : Exp . IFF Exp 
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	THEN	reduce by rule 10
+	ELSE	reduce by rule 10
+	RPAR	reduce by rule 10
+	FULLSTOP	reduce by rule 10
+
+
+	.	error
+
+
+state 26:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp OR Exp .  (reduce by rule 8)
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+
+	AND	reduce by rule 8
+	OR	reduce by rule 8
+	IF	reduce by rule 8
+	IFF	reduce by rule 8
+	THEN	reduce by rule 8
+	ELSE	reduce by rule 8
+	RPAR	reduce by rule 8
+	FULLSTOP	reduce by rule 8
+
+
+	.	error
+
+
+state 27:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp AND Exp .  (reduce by rule 7)
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+
+	AND	reduce by rule 7
+	OR	reduce by rule 7
+	IF	reduce by rule 7
+	IFF	reduce by rule 7
+	THEN	reduce by rule 7
+	ELSE	reduce by rule 7
+	RPAR	reduce by rule 7
+	FULLSTOP	reduce by rule 7
+
+
+	.	error
+
+
+state 28:
+
+	Stringlist : Term Stringlist .  (reduce by rule 16)
+
+	QUOTE	reduce by rule 16
+
+
+	.	error
+
+
+state 29:
+
+	Exp : QUOTE Stringlist QUOTE .  (reduce by rule 14)
+
+	AND	reduce by rule 14
+	OR	reduce by rule 14
+	IF	reduce by rule 14
+	IFF	reduce by rule 14
+	THEN	reduce by rule 14
+	ELSE	reduce by rule 14
+	RPAR	reduce by rule 14
+	FULLSTOP	reduce by rule 14
+
+
+	.	error
+
+
+state 30:
+
+	Exp : LPAR Exp RPAR .  (reduce by rule 13)
+
+	AND	reduce by rule 13
+	OR	reduce by rule 13
+	IF	reduce by rule 13
+	IFF	reduce by rule 13
+	THEN	reduce by rule 13
+	ELSE	reduce by rule 13
+	RPAR	reduce by rule 13
+	FULLSTOP	reduce by rule 13
+
+
+	.	error
+
+
+state 31:
+
+	Exp : IF Exp THEN . Exp 
+	Exp : IF Exp THEN . Exp ELSE Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 32
+
+	.	error
+
+
+state 32:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : IF Exp THEN Exp .  (reduce by rule 9)
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Exp : IF Exp THEN Exp . ELSE Exp 
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	THEN	reduce by rule 9
+	ELSE	shift 33
+	RPAR	reduce by rule 9
+	FULLSTOP	reduce by rule 9
+
+
+	.	error
+
+
+state 33:
+
+	Exp : IF Exp THEN Exp ELSE . Exp 
+
+	NOT	shift 8
+	IF	shift 7
+	LPAR	shift 5
+	QUOTE	shift 4
+
+	Exp	goto 34
+
+	.	error
+
+
+state 34:
+
+	Exp : Exp . AND Exp 
+	Exp : Exp . OR Exp 
+	Exp : Exp . IF Exp 
+	Exp : Exp . IFF Exp 
+	Exp : IF Exp THEN Exp ELSE Exp .  (reduce by rule 12)
+
+	AND	shift 15
+	OR	shift 14
+	IF	shift 13
+	IFF	shift 12
+	THEN	reduce by rule 12
+	ELSE	reduce by rule 12
+	RPAR	reduce by rule 12
+	FULLSTOP	reduce by rule 12
+
+
+	.	error
+
+
+state 35:
+
+
+	EOF	accept
+
+
+	.	error
+
+120 of 196 action table entries left after compaction
+24 goto table entries

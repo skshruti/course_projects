@@ -1,0 +1,11 @@
+CM.make("$/basis.cm"); 
+CM.make("$/ml-yacc-lib.cm"); 
+use "AST.sml"; 
+use "flasllex.yacc.sig"; 
+use "flasllex.yacc.sml"; 
+use "flasllex.lex.sml";  
+use "Flasllex.sml"; 
+Control.Print.printLength := 1000; 
+Control.Print.printDepth := 1000; 
+Control.Print.stringDepth := 1000; 
+open Flasllex; 
