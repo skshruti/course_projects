@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background-color:#6abadeba;
+      font-family: 'Arial';
+    }
+    .thankyou{
+        width: 350px;
+        overflow: hidden;
+        margin: auto;
+        margin: 40px 0 0 450px;
+        padding: 70px;
+        background: #3A4778;
+        border-radius: 5px ;
+
+    }
+    h2{
+        text-align: center;
+        color: 	#E6ACF1;
+        padding: 0;
+        font-size: 26px;
+        font-style: normal;
+    }
+
+    </style>
+</head>
+<body background="{{ url_for('static', filename='../static/css/im1.jpeg') }}">
+
+    <div class="thankyou">
+        <h2 style="font-size:160%;">Your address has been saved.</h2>
+        <h2 style="font-size:160%;">Thank You! for supporting us at</h2>
+        <h2 style="font-size:300%;" >ApnaBazaar :)</h2><br>
+        <br><br>
+        <a href="/{{userid}}/home" style="color:#F8F9FB;"><p style="float:left">Continue Shopping</a>
+        <a href="/" style="color:#F8F9FB;"><p style="float:right">Logout</a>
+    </div>
+
+</body>
+</html>

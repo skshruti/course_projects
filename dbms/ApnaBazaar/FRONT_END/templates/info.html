@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="static/css/profile.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card w3-right" style="height: 46px;">
+            <a href="/{{userid}}/info" class="w3-bar-item w3-button w3-padding-large" style="height: 46px;">Your Account Details  <i class="fa fa-user-circle-o"></i></a>
+        </div>
+      </div>
+      
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px; margin-left: 10%; margin-top:55px">
+    <h4>Your Name</h4>
+    <p class="w3-text-grey" style="margin-left: 5%;">{{information[1]}}</p><br>
+  
+    <h4>Your email id</h4>
+    <p class="w3-text-grey" style="margin-left: 5%;">{{information[3]}}</p><br>
+  
+    <h4>Your phone number</h4>
+    <p class="w3-text-grey" style="margin-left: 5%;">{{information[4]}}</p><br>
+
+    <h4>Your wallet balance</h4>
+    <p class="w3-text-grey" style="margin-left: 5%;">Rs. {{information[5]}}</p><br>
+
+</div>
+<p class="w3-large w3-center"><a href="/{{userid}}/addmoney" class="w3-button w3-green w3-padding-large" style="float: right;">Add money</a></p>
+
+
+</body>
+</html>
+

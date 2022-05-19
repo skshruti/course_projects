@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="static/css/profile.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Home | Apna Baazar</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico')}}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/core-style.css')}}">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <!-- Responsive CSS -->
+    <link href="{{ url_for('static', filename='../static/css/responsive.css')}}" rel="stylesheet">
+
+    <style>
+        img{height: 300px; width: 250px;}
+        .multicolor-text {
+            text-align: center;
+            font-size: 50px;
+            background: linear-gradient(to left,
+                    violet,
+                    indigo,
+                    blue,
+                    green,
+                    yellow,
+                    orange,
+                    red);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+      </style>
+</head>
+
+<body>
+
+    
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card w3-right">
+          <div class="w3-dropdown-hover w3-hide-small w3-right">
+            <button class="w3-padding-large w3-button" title="Profile">Hello, User!  <i class="fa fa-caret-down"></i></button>     
+            <div class="w3-dropdown-content w3-bar-block w3-card-4">
+              <a href="/{{userid}}/cart" class="w3-bar-item w3-button">Your Cart</a>
+              <a href="/{{userid}}/orders" class="w3-bar-item w3-button">Previous Orders</a>
+              <a href="/{{userid}}/addresses" class="w3-bar-item w3-button">Saved addresses</a>
+              <a href="/{{userid}}/info" class="w3-bar-item w3-button">Your Account</a>
+              <a href="/" class="w3-bar-item w3-button">Log Out  <i class="fa fa-sign-out"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div class= "karl-projects-menu section_padding_100_0 mb-100" style="height: 170px;">
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="section_heading text-center">
+                <h1 class="multicolor-text" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 70px; ">Apna Bazaar :)</h1>
+            </div>
+        </div>
+    </div>
+        <div class="text-center portfolio-menu">
+            {% for cat in cats %}
+                <button class="btn" ><a href = "/{{userid}}/{{cat}}/categorypage">{{cat}}</a></button>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+    <div id="wrapper">
+
+
+        <!-- ****** Most Popular Area Start ****** -->
+        <section class="new_arrivals_area section_padding_100_0 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>Most Popular</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="container">
+                <div class="row karl-new-arrivals">
+                    
+                    {% for i in popularItems %}
+                    <!-- Single gallery Item Start -->
+                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img src={{i[4]}} alt="">
+                            <!-- <div class="product-quicview">
+                                <a href="/{{userid}}/{{i[0]}}/{{i[1]}}/itempage" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
+                            </div> -->
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <h4 class="product-price">$ {{i[5]}}</h4>
+                            <span style="text-decoration: line-through; color: rgb(136, 139, 139);">$ {{i[6]}}</span><span style="color: green;">   {{i[2]}}% OFF</span>
+                            <br>
+                            <a href="/{{userid}}/{{i[0]}}/{{i[1]}}/itempage" target="_blank" target="_blank" target="_blank" style="color:#000000">{{i[7]}}</a>
+                        </div>
+                    </div>
+                    {%endfor%}
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="new_arrivals_area section_padding_100_0 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>Most Discounted</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="container">
+                <div class="row karl-new-arrivals">
+                    {% for i in discountedItems %}
+                    <!-- Single gallery Item Start -->
+                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img src="{{i[4]}}" alt="">
+                            <!-- <div class="product-quicview">
+                                <a href="/{{userid}}/{{i[0]}}/{{i[1]}}/itempage" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
+                            </div> -->
+                        </div>
+                        <!-- Product Description -->
+                        <div class="product-description">
+                            <h4 class="product-price">$ {{i[5]}}</h4>
+                            <span style="text-decoration: line-through; color: rgb(136, 139, 139);">$ {{i[6]}}</span><span style="color: green;">   {{i[2]}}% OFF</span>
+                            <br>
+                            <a href="/{{userid}}/{{i[0]}}/{{i[1]}}/itempage" target="_blank" style="color:#000000">{{i[7]}}</a>
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                    
+                </div>
+            </div>
+        </section>
+        <!-- ****** Most Discounted Area End ****** -->
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+/* table, th, td {
+    border: 1px solid;
+} */
+
+table{
+    width: 100%;
+    padding: 5%;
+}
+
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+.w3-sidebar {width: 120px;background: #222;}
+#main {margin-left: 120px}
+
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+
+img{
+    height: 500px;
+    width: 5px;
+}

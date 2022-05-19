@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Form</title>
+    <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background-color:#6abadeba;
+      font-family: 'Arial';
+    }
+    .signup{
+        width: 350px;
+        overflow: hidden;
+        margin: auto;
+        margin: 40px 0 0 450px;
+        padding: 70px;
+        background: #6DC9C6;
+        border-radius: 5px ;
+
+    }
+    h2{
+        text-align: center;
+        color: 	#B350C6;
+        padding: 0;
+        font-size: 26px;
+    }
+    label{
+        color: #4263CA;
+        font-size: 17px;
+    }
+    #Username{
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+    }
+    #Password{
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+
+    }
+    #FullName{
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+
+    }
+    #EmailId{
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+
+    }
+    #MobileNo{
+        width: 300px;
+        height: 30px;
+        border: none;
+        border-radius: 3px;
+        padding-left: 8px;
+
+    }
+    #sign{
+        width: 310px;
+        height: 30px;
+        border: none;
+        border-radius: 17px;
+        padding-left: 7px;
+        color: blue;
+
+
+    }
+    </style>
+</head>
+<body background="{{ url_for('static', filename='../static/css/im1.jpeg') }}">
+
+    <div class="signup">
+    <form id="signup" action="/processSignup" method="post">
+        <h2 >Welcome to ApnaBazaar :)</h2>
+        <br>
+        <p style="color:red">Username already exists!!</p>
+        <br>
+        <label><b>Username
+        </b>
+        </label>
+        <input type="text" name="Username" id="Username" placeholder="Username">
+        <br><br>
+        <label><b>Full Name
+        </b>
+        </label>
+        <input type="text" name="FullName" id="FullName" placeholder="Full Name">
+        <br><br>
+        <label><b>Email Id
+        </b>
+        </label>
+        <input type="text" name="EmailId" id="EmailId" placeholder="Email Id">
+        <br><br>
+        <label><b>Password
+        </b>
+        </label>
+        <input type="Password" name="Password" id="Password" placeholder="Password">
+        <br><br><br>
+        <input type="submit" name="sign" id="sign" value="SIGN UP">
+        <br><br><br>
+        <p style="color:#626364"> Already have an account?  &nbsp; <a href="/" style="color:#666768">Log In</a> </p>
+    </form>
+</div>
+</body>
+</html>

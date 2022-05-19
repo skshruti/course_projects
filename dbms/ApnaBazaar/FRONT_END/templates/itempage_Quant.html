@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="static/css/profile.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .column {
+        float: left;
+        padding: 50px;
+        height: 900px;
+      }
+      .left {
+        width: 40%;
+      }
+      .middle {
+        width: 40%;
+      }
+      .right {
+        width: 20%;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+  </head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-black w3-card w3-right" style="height: 46px;">
+        <a href="/{{userid}}/home" class="w3-bar-item w3-button w3-padding-large" style="height: 46px;">ApnaBazaar :) </a>
+    </div>
+  </div>
+  <br>
+<div class="row">
+  <div class="column left" style="background-color:#e5c9c9;" >
+    <br><br><br>
+    <img src={{item[15]}} alt="Product" style="max-width: 800px; max-height: 1200px;"><br>
+    <p style="font-size:150%;">Id : {{item[20]}}</p>
+    <span style="font-size:150%;color:yellow;">&starf; {{item[7]}} </span>
+  </div>
+  <div class="column middle" style="background-color:#ededed;" >
+    <br><br>
+    <p style="font-size:180%;"> {{item[2]}} </p>
+      <p style="font-size:120%;"><b>Brand</b> : {{item[9]}}</p>
+      <p style="font-size:120%;"><b>Model</b> : {{item[21]}}</p>
+      <p style="font-size:120%;"><b>M.R.P</b> : $ {{item[4]}}</p>
+      <p style="font-size:120%;"><b>Discount</b> : {{item[6]}}%</p>
+      <p style="font-size:160%;"><b>Current Price</b> : $ {{item[3]}}</p>
+    </p>
+  </div>
+  <div class="column right" style="background-color:#e5c9c9;" >
+    <br><br><br>
+    <p style="font-size:100%; color:red">Hurry! Only {{item[22]}} left in stock!</p><br>
+    <form method="POST" action="/{{userid}}/{{item[0]}}/{{item[20]}}/addtocart">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" min="1" max={{quantity}}><br><br>
+      <input type="submit" name="addtocart" id="addtocart" value="ADD TO CART" style="color: #cb0b0b;background: #27ceeb96;"> <br><br>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

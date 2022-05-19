@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="static/css/profile.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card w3-right" style="height: 46px;">
+            <a href="/{{userid}}/addresses" class="w3-bar-item w3-button w3-padding-large" style="height: 46px;">Your Saved Addresses  <i class="fa fa-address-book"></i></a>
+        </div>
+      </div>
+
+<div class="w3-content" style="max-width:2000px; margin-left: 10%; margin-top:55px">
+  {% for address in addresses%} 
+  <h4>{{address[1]}}</h4>
+  <p class="w3-text-grey" style="margin-left: 5%;">{{address[2]}}</p><br>
+  {% endfor %}
+</div>
+<p class="w3-large w3-center"><a href="/{{userid}}/addnewaddress" class="w3-button w3-green w3-padding-large" style="float: right;">Add new address</a></p>
+
+</body>
+</html>
+

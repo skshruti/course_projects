@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="static/css/profile.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  table, th, td, tr{border: 0px;}  
+  img{height: 250px; width: 250px;}
+</style>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card w3-right" style="height: 46px;">
+            <a href="/{{userid}}/orders" class="w3-bar-item w3-button w3-padding-large" style="height: 46px;">Your Previous Orders  <i class="fa fa-shopping-cart"></i></a>
+        </div>
+      </div>
+      
+<div class="w3-content" style="margin-top:55px; max-width: 100%;">
+  <table  class="w3-striped" style="margin-right: 0px;">
+      <!-- <tr><th>Image</th><th>Item name</th><th>Price + discount</th><th>Quantity</th><th>Price to Pay</th><th>Action</th></tr> -->
+      {% for item in items%} 
+      <tr>
+        <td><img class="w3-image" src={{item[0]}}></td>
+        <td><a href="/{{userid}}/{{item[4]}}/{{item[2]}}/itempage">{{item[1]}}</a>
+          <br>{{item[3]}}<br>
+        </td>
+      </tr>
+      {% endfor %} 
+  </table>
+</div>
+
+</body>
+</html>
+

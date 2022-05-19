@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Search Results | Apna Baazar</title>
+    <link rel="stylesheet" href="static/css/profile.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{{ url_for('static', filename='img/core-img/favicon.ico')}}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/core-style.css')}}">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <!-- Responsive CSS -->
+    <link href="{{ url_for('static', filename='../static/css/responsive.css')}}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card w3-right" style="height: 46px;">
+            <a href="/{{userid}}/home" class="w3-bar-item w3-button w3-padding-large" style="height: 46px;">ApnaBazaar :) </a>
+        </div>
+      </div>
+
+
+    <div class="main-search-input-wrap" style="margin-top: 55px;">
+     <div class="main-search-input fl-wrap">
+         <div class="main-search-input-item"> 
+            <form action="/{{userid}}/{{category}}/processSearch" method="POST">
+                <input type="text" name="searchbar" value="" placeholder="Search Products..."> </div> <button class="main-search-button">Search</button>
+            </form>
+     </div>
+    </div>
+    
+
+    
+
+    <section class="new_arrivals_area section_padding_100_0 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>{{category}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <form method="POST" >
+        <p align="right">
+            <label>Filters :  </label>
+            <select name=filters onchange='if(this.value != 0) { this.form.submit(); }'>
+                <option value='0' selected>--Select--</option>
+                <option value='1'>Price : Low to High</option>
+                <option value='2'>Price : High to Low</option>
+                <option value='3'>Discount : Low to High</option>
+                <option value='4'>Discount : High to Low</option>
+            </select>
+        </p>
+    </form>
+
+
+    <div id="wrapper">
+
+        <section class="shop_grid_area section_padding_100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <div class="shop_sidebar_area">
+                           
+                            <div class="widget catagory mb-50">
+                                <!--  Side Nav  -->
+                                <div class="nav-side-menu">
+                                    <h6 class="mb-0">CATEGORIES</h6>
+                                    <div class="menu-list">
+                                        {% for cat in cats %}
+                                            <li><a href="/{{userid}}/{{cat}}/categorypage">{{cat}}</a></li>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 col-lg-9">
+                        <div class="shop_grid_product_area">
+                            <div class="row">
+
+                                <!-- Single gallery Item -->
+                                {% for i in items %}
+                                <div class="col-12 col-sm-6 col-lg-4 single_gallery_item wow fadeInUpBig" data-wow-delay="0.2s">
+                                    <!-- Product Image -->
+                                    <div class="product-img">
+                                        <img src={{i[18]}} alt="" onerror="this.onerror=null; this.src='../static/css/Default.jpg'">
+                                    </div>
+                                    <!-- <object data={{i[18]}} type="image/jpg">
+                                        <img src="https://imgaz1.chiccdn.com/thumb/view/oaupload/newchic/images/2E/72/1c322075-7a7a-474d-976e-6bcbc45daaec.jpg" >
+                                    </object> -->
+                                    <!-- Product Description -->
+                                    <div class="product-description">
+                                        <h4 class="product-price">$ {{i[3]}}</h4>
+                                        <span style="text-decoration: line-through; color: rgb(136, 139, 139);">$ {{i[4]}}</span><span style="color: green;">   {{i[6]}}% OFF</span>
+                                        <br>
+                                        <a href="/{{userid}}/{{i[0]}}/{{i[20]}}/itempage" target="_blank" style="color:#000000">{{i[2]}}</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <!-- /.wrapper end -->
+
+
+</body>
+
+</html>
